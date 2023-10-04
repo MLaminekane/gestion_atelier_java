@@ -1,5 +1,6 @@
 package com.ism.entities;
 
+
 public class Unite extends AbstractEntities {
     public Unite(){
         super();

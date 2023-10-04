@@ -11,4 +11,5 @@ public interface IService<T> {
  T show(int id);
  int remove(int id);
  int[] remove(int[] ids);
+
 }

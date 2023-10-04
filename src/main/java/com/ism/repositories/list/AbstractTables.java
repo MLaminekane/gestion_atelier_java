@@ -10,6 +10,12 @@ public class AbstractTables<pro extends AbstractEntities> implements ITables<pro
         tables.add(data);
         return 1;
     }
+
+    @Override
+    public int insert(pro data, String libelle, Double prix, Double qte) {
+        return 0;
+    }
+
     @Override
     public int update(pro data) {
         int pos = indexOf(data.getId());

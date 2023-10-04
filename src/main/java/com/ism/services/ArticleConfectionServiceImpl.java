@@ -3,19 +3,31 @@ package com.ism.services;
 import java.util.ArrayList;
 
 import com.ism.entities.ArticleConfection;
+import com.ism.entities.Categorie;
 
 public class ArticleConfectionServiceImpl implements ArticleConfectionService {
+    private IService<ArticleConfection> articleRepo;
+    public ArticleConfectionServiceImpl(IService<ArticleConfection> articleRepo) {
+        this.articleRepo = articleRepo;
+    }
+    public void setArticleRepo(IService<ArticleConfection> articleRepo){
+        this.articleRepo = articleRepo;
+    }
+    @Override
+    public void add(ArticleConfection confection, String libelle, Double prix, Double qte) {
+        articleRepo.add(confection);
+
+    }
 
     @Override
     public void add(ArticleConfection data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+
     }
 
     @Override
     public ArrayList<ArticleConfection> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return articleRepo.getAll();
+
     }
 
     @Override

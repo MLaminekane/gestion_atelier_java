@@ -15,8 +15,6 @@ public class ArticleConfection extends AbstractEntities {
       //Couplage Fort
        ArrayList <Unite> unites =new ArrayList<>();
 
-  
-
     public void addUnite(Unite unite){
          unites.add(unite);
      }
@@ -32,10 +30,8 @@ public class ArticleConfection extends AbstractEntities {
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
     }
-
-
     
-    public ArticleConfection(int id, String libelle, double prix, double qte) {
+    public ArticleConfection(String libelle) {
         this.id = id;
         this.libelle = libelle;
         this.prix = prix;

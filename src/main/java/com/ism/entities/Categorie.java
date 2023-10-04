@@ -2,9 +2,7 @@ package com.ism.entities;
 
 public class Categorie  extends AbstractEntities {
     
-    public Categorie(){
-        super();
-    }
+    public Categorie(){super();}
 
     public Categorie(int id, String libelle){
         super(id,libelle);
