@@ -3,7 +3,6 @@ package com.ism.services;
 import java.util.ArrayList;
 
 import com.ism.entities.ArticleConfection;
-import com.ism.entities.Categorie;
 
 public class ArticleConfectionServiceImpl implements ArticleConfectionService {
     private IService<ArticleConfection> articleRepo;
@@ -32,20 +31,23 @@ public class ArticleConfectionServiceImpl implements ArticleConfectionService {
 
     @Override
     public int update(ArticleConfection data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return 0;
+    }
+
+    @Override
+    public int update(ArticleConfection data, String libelle, Double prix, Double qte) {
+        return articleRepo.update(data);
+
     }
 
     @Override
     public ArticleConfection show(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'show'");
+        return articleRepo.getAll().get(id);
     }
 
     @Override
     public int remove(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        return articleRepo.remove(id);
     }
 
     @Override

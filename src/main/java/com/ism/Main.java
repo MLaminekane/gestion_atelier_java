@@ -37,19 +37,16 @@ public class Main {
                         sc.nextLine();
                         switch(choix){
                             case 1:
-                                effacer();
                                 System.out.println("Entrer le libelle :");
                                 Categorie categorie = new Categorie(sc.nextLine());
                                 categorieServiceImpl.add(categorie);
                                 break;
                             case 2:
-                                effacer();
                                 System.out.println("Liste des catégories :");
 //                    categorieServiceImpl.getAll().forEach(System.out::println);
                                 categorieServiceImpl.getAll().forEach(cat -> System.out.println(cat.getId() + ". " + cat.getLibelle()));
                                 break;
                             case 3:
-                                effacer();
                                 System.out.println("Liste des catégories :");
                                 categorieServiceImpl.getAll().forEach(cat -> System.out.println(cat.getId() + ". " + cat.getLibelle()));
                                 System.out.print("Entrez l'ID de la catégorie à éditer : ");
@@ -68,7 +65,6 @@ public class Main {
                                 }
                                 break;
                             case 4:
-                                effacer();
                                 System.out.println("Liste des catégories :");
                                 categorieServiceImpl.getAll().forEach(cat -> System.out.println(cat.getId() + ". " + cat.getLibelle()));
                                 System.out.println("1.Supprimer une Categorie - 2.Supprimer plusieurs categories ");
@@ -76,7 +72,6 @@ public class Main {
                                 sc.nextLine();
                                 switch (idSupp) {
                                     case 1:
-                                        effacer();
                                         System.out.println("Entrer l'id de la categorie a supprimer: ");
                             int categorieToDelete = sc.nextInt();
                             int rm = categorieServiceImpl.remove(categorieToDelete);
@@ -85,10 +80,6 @@ public class Main {
                             } else {
                                 System.out.println("ID categorie introuvable");
                             }
-//                                        categorieServiceImpl.getAll().forEach(cat -> System.out.println(cat.getId() + ". " + cat.getLibelle()));
-//                                        System.out.println("Entrer l'id: ");
-//                                        idSupp=sc.nextInt();
-//                                        categorieServiceImpl.remove(idSupp=1);
                                         break;
                                     case 2:
                                         System.out.println("Entrer les ids à supprimer séparés par des espaces : ");
@@ -112,7 +103,6 @@ public class Main {
                                 }
                                 break;
                             case 5:
-                                effacer();
                                 System.out.println("Entrer l'id que vous souhaitez rechercher : ");
                                 int idSearch = sc.nextInt();
                                 sc.nextLine();
@@ -157,11 +147,55 @@ public class Main {
                                 break;
 
                             case 2:
-                                effacer();
                                 System.out.println("Liste des articles confection :");
                                 articleConfectionServiceImpl.getAll().forEach(art -> System.out.println(art.getId() + ". " + art.getLibelle() + ". " + art.getPrix() + ". " + art.getQte()));
                                 break;
                             case 3:
+                                System.out.println("Liste des catégories :");
+                                articleConfectionServiceImpl.getAll().forEach(art -> System.out.println(art.getId() + ". " + art.getLibelle() + ". " + art.getPrix() + ". " + art.getQte()));
+                                System.out.print("Entrez l'ID de l'article à éditer : ");
+                                int idToEdit = sc.nextInt();
+                                sc.nextLine();
+                                ArticleConfection artToEdit = articleConfectionServiceImpl.show(idToEdit);
+                                if (artToEdit != null){
+                                    System.out.println("L'article sélectionnée : " + artToEdit.getLibelle() + "." + artToEdit.getPrix() + "." + artToEdit.getQte());
+                                    System.out.println("Nouveau libellé : ");
+                                    String newLibelle = sc.nextLine();
+                                    System.out.println("Nouveau Prix: ");
+                                    Double newPrix = sc.nextDouble();
+                                    System.out.println("Nouvelle Quantite: ");
+                                    Double newQte = sc.nextDouble();
+                                    artToEdit.setLibelle(newLibelle);
+                                    artToEdit.setPrix(newPrix);
+                                    artToEdit.setQte(newQte);
+                                    articleConfectionServiceImpl.update(artToEdit);
+                                    System.out.println("Article éditée avec succès.");
+                                } else {
+                                    System.out.println("ID de l'article introuvable.");
+                                }
+                            case 4:
+                                System.out.println("Liste des articles :");
+                                articleConfectionServiceImpl.getAll().forEach(art -> System.out.println(art.getId() + ". " + art.getLibelle() + ". " + art.getPrix() + ". " + art.getQte()));
+                                System.out.println("Entrer l'id de l'article a supprimer: ");
+                                int artToDelete = sc.nextInt();
+                                int rm = articleConfectionServiceImpl.remove(artToDelete);
+                                if (rm == 1) {
+                                    System.out.println("L'atcle a été supprimée.");
+                                } else {
+                                    System.out.println("ID categorie introuvable");
+                                }
+                                break;
+                            case 5:
+                                System.out.println("Entrer l'id que vous souhaitez rechercher : ");
+                                int idSearch = sc.nextInt();
+                                sc.nextLine();
+                                ArticleConfection search = articleConfectionServiceImpl.show(idSearch);
+                                if (search != null) {
+                                    System.out.println("Article trouvée: " + search.getId() + "." + search.getLibelle() + "." + search.getPrix() + "." + search.getQte());
+                                } else {
+                                    System.out.println("Aucune article trouvée" + idSearch);
+                                }
+                                break;
 
                             default:
                                 break;
@@ -173,9 +207,5 @@ public class Main {
             }
         }while (true);
     }
-    public static void effacer(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    } 
 }
-       
+
