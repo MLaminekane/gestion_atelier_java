@@ -11,10 +11,6 @@ public class AbstractTables<pro extends AbstractEntities> implements ITables<pro
         return 1;
     }
 
-    @Override
-    public int insert(pro data, String libelle, Double prix, Double qte) {
-        return 0;
-    }
 
     @Override
     public int update(pro data) {

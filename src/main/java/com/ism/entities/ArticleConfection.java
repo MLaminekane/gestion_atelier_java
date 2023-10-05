@@ -31,11 +31,11 @@ public class ArticleConfection extends AbstractEntities {
         this.categorie = categorie;
     }
     
-    public ArticleConfection(String libelle) {
+    public ArticleConfection(String libelle, int prix, int qte) {
         this.id = id;
         this.libelle = libelle;
-        this.prix = prix;
-        this.qte = qte;
+        this.prix = this.prix;
+        this.qte = this.qte;
     }
 
     public ArticleConfection() {

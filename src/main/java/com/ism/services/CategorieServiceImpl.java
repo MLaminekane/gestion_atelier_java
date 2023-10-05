@@ -61,5 +61,9 @@ public class CategorieServiceImpl implements CategorieService {
         }
           return idsNotDelete;
     }
-    
+
+    @Override
+    public Categorie get(int i) {
+        return null;
+    }
 }

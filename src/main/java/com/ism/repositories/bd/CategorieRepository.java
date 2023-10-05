@@ -11,10 +11,7 @@ public class CategorieRepository implements ITables<Categorie> {
         return 0;
     }
 
-    @Override
-    public int insert(Categorie data, String libelle, Double prix, Double qte) {
-        return 0;
-    }
+
 
     @Override
     public int update(Categorie data) {
