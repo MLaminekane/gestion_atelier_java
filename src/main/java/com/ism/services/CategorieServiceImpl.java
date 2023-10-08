@@ -22,8 +22,6 @@ public class CategorieServiceImpl implements CategorieService {
     public void setCategoriesRepository(ITables<Categorie> categoriesRepository) {
         this.categoriesRepository = categoriesRepository;
     }
-
-
     @Override
     public void add(Categorie categorie) {
         categoriesRepository.insert(categorie);

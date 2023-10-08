@@ -8,7 +8,6 @@ import com.ism.entities.AbstractEntities;
 public interface ITables<pro extends AbstractEntities>{
    int insert (pro data) ;
    int update(pro data);
-
    ArrayList<pro>findAll ();
    pro findById (int id);
    int delete (int id);

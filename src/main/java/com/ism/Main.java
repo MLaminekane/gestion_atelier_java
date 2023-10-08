@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import com.ism.entities.ArticleConfection;
 import com.ism.entities.Categorie;
 import com.ism.repositories.ITables;
+import com.ism.repositories.bd.ArticleRepository;
+import com.ism.repositories.bd.CategorieRepository;
 import com.ism.repositories.list.TableArticleConfections;
 import com.ism.repositories.list.TableCategories;
 import com.ism.services.*;
@@ -13,29 +15,32 @@ import com.ism.services.*;
 public class Main {
     private static final Scanner sc =new Scanner(System.in);
     public static void main(String[] args) {
-        ITables<Categorie> repository=new TableCategories();
-        ITables<ArticleConfection> article=new TableArticleConfections();
+        ITables<Categorie> repository=new CategorieRepository();
+        ITables<ArticleConfection> article=new ArticleRepository();
         CategorieService categorieServiceImpl = new CategorieServiceImpl(repository);
         ArticleConfectionService articleConfectionServiceImpl = new ArticleConfectionServiceImpl(article);
         int choix = 0;
         do {
-            System.out.println("-------MENU GENERAL-------");
+            System.out.println("-------Gestion Couture Java-------");
             System.out.println("1. Categorie");
             System.out.println("2. Article Confection");
+            System.out.println("3. Quitter");
             choix = sc.nextInt();
             switch (choix){
                 case 1:
+                    int categorieChoix;
                     do {
-                        System.out.println("-------MENU GENERAL-------");
-                        System.out.println("1----Ajouter categorie");
-                        System.out.println("2----Lister les categories");
-                        System.out.println("3----Editer categorie");
-                        System.out.println("4----Supprimer categorie");
-                        System.out.println("5----Rechercher categorie");
-                        System.out.println("6----Quitter");
-                        choix=sc.nextInt();
+                        System.out.println("-------MENU CATEGORIES-------");
+                        System.out.println("1. Ajouter categorie");
+                        System.out.println("2. Lister les categories");
+                        System.out.println("3. Editer categorie");
+                        System.out.println("4. Supprimer categorie");
+                        System.out.println("5. Rechercher categorie");
+                        System.out.println("6. Retour au menu principal");
+                        System.out.println("7. Quitter");
+                        categorieChoix = sc.nextInt();
                         sc.nextLine();
-                        switch(choix){
+                        switch(categorieChoix){
                             case 1:
                                 System.out.println("Entrer le libelle :");
                                 Categorie categorie = new Categorie(sc.nextLine());
@@ -72,13 +77,13 @@ public class Main {
                                 switch (idSupp) {
                                     case 1:
                                         System.out.println("Entrer l'id de la categorie a supprimer: ");
-                            int categorieToDelete = sc.nextInt();
-                            int rm = categorieServiceImpl.remove(categorieToDelete);
-                            if (rm == 1) {
-                                System.out.println("La categorie a été supprimée.");
-                            } else {
-                                System.out.println("ID categorie introuvable");
-                            }
+                                        int categorieToDelete = sc.nextInt();
+                                        int rm = categorieServiceImpl.remove(categorieToDelete);
+                                        if (rm == 1) {
+                                            System.out.println("La categorie a été supprimée.");
+                                        } else {
+                                            System.out.println("ID categorie introuvable");
+                                        }
                                         break;
                                     case 2:
                                         System.out.println("Entrer les ids à supprimer séparés par des espaces : ");
@@ -112,33 +117,56 @@ public class Main {
                                     System.out.println("Aucune catégorie trouvée" + idSearch);
                                 }
                                 break;
+                            case 6:
+                                break;
+                            case 7:
+                                System.exit(0);
+                                break;
+                            default:
+                                System.out.println("Choix invalide.");
+                                break;
                         }
-                    } while(choix!=6);
+                    } while(categorieChoix!=6);
                 case 2:
+                    int articleChoix;
                     do {
                         System.out.println("-------MENU ARTICLES CONFECTION-------");
-                        System.out.println("1----Ajouter article Confection");
-                        System.out.println("2----Lister les articles confection");
-                        System.out.println("3----Editer article confection");
-                        System.out.println("4----Supprimer article confection");
-                        System.out.println("5----Retour au menu principal");
-                        choix = sc.nextInt();
-                        switch (choix) {
+                        System.out.println("1. Ajouter article Confection");
+                        System.out.println("2. Lister les articles confection");
+                        System.out.println("3. Editer article confection");
+                        System.out.println("4. Supprimer article confection");
+                        System.out.println("5. Rechercher article confection");
+                        System.out.println("6. Retour au menu principal");
+                        System.out.println("7. Quitter");
+                        articleChoix = sc.nextInt();
+                        sc.nextLine();
+                        switch (articleChoix) {
                             case 1:
-                                System.out.println("Entrer le libelle: ");
-                                String libelle = sc.next();
-                                System.out.println("Entrer le prix: ");
-                                int prix = sc.nextInt();
-                                System.out.println("Entrer la quantite: ");
-                                int qte = sc.nextInt();
-                                ArticleConfection articleConfection= new ArticleConfection();
-                                categorieServiceImpl.getAll().forEach(cat -> System.out.println(cat.getId() + ". " + cat.getLibelle()));
                                 System.out.println("Entrer l'id de la categorie: ");
-                                articleConfection.setLibelle(libelle);
-                                articleConfection.setPrix(prix);
-                                articleConfection.setQte(qte);
-                                articleConfection.setCategorie(categorieServiceImpl.get(sc.nextInt()));
-                                articleConfectionServiceImpl.add(articleConfection);
+                                int categorieId = sc.nextInt();
+                                sc.nextLine(); // Ajout de cette ligne pour consommer la nouvelle ligne restante
+                                Categorie selectedCategorie = categorieServiceImpl.show(categorieId);
+                                if (selectedCategorie != null) {
+                                    System.out.println("Libellé de la catégorie associée à l'article : " + selectedCategorie.getLibelle());
+                                    ArticleConfection articleConfection = new ArticleConfection();
+                                    System.out.println("Entrer le libellé: ");
+                                    String libelle = sc.nextLine();
+                                    System.out.println("Entrer le prix: ");
+                                    double prix = sc.nextDouble();
+                                    sc.nextLine(); // Ajout de cette ligne pour consommer la nouvelle ligne restante
+                                    System.out.println("Entrer la quantité: ");
+                                    double qte = sc.nextDouble();
+                                    sc.nextLine(); // Ajout de cette ligne pour consommer la nouvelle ligne restante
+                                    articleConfection.setLibelle(libelle);
+                                    articleConfection.setPrix(prix);
+                                    articleConfection.setQte(qte);
+                                    articleConfection.setCategorie(selectedCategorie);
+                                    articleConfection.setCatLibelle(selectedCategorie.getLibelle());
+                                    articleConfectionServiceImpl.add(articleConfection);
+                                    System.out.println("Article de confection ajouté avec succès.");
+                                } else {
+                                    System.out.println("ID de catégorie introuvable. L'article de confection n'a pas été ajouté.");
+                                }
                                 break;
                             case 2:
                                 System.out.println("Liste des articles confection :");
@@ -184,15 +212,30 @@ public class Main {
                                 }
                                 break;
                             case 5:
+                                System.out.println("Entrer l'id que vous souhaitez rechercher : ");
+                                int idSearch = sc.nextInt();
+                                sc.nextLine();
+                                ArticleConfection search = articleConfectionServiceImpl.show(idSearch);
+                                if (search != null) {
+                                    System.out.println("Article trouvé: " +"ID: " + search.getId() + ", Libelle: " + search.getLibelle() + ", Prix: " + search.getPrix() + ", Quantite: " + search.getQte());
+                                } else {
+                                    System.out.println("Aucun article trouvé" + idSearch);
+                                }
+                                break;
+                            case 6:
+                                break;
+                            case 7:
+                                System.exit(0);
                                 break;
                             default:
-                                System.out.println("Choix invalide. Veuillez choisir une option valide.");
+                                System.out.println("Choix invalide.");
                                 break;
                         }
-                        sc.nextLine();
-                    } while (choix != 6);
+                    } while (articleChoix != 6);
+                    break;
                 case 3:
-                System.exit(0);
+                    System.exit(0);
+                    break;
                 default:
                     System.out.println("Choix invalide.");
                     break;
@@ -200,4 +243,3 @@ public class Main {
         }while (true);
     }
 }
-

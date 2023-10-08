@@ -46,4 +46,5 @@ public class ArticleConfectionServiceImpl implements ArticleConfectionService {
     public int[] remove(int[] ids) {
         return new int[0];
     }
+
 }

@@ -7,18 +7,19 @@ public class ArticleConfection extends AbstractEntities {
     private String libelle;
     private double prix;
     private double qte;
+    private String catLibelle; // Champ pour stocker le libellé de la catégorie associée
 
-    //Attributs Navigationnels
+    // Attributs Navigationnels
     //@ManyToOne
-      Categorie categorie;
-      //@ManyToMany
-      //Couplage Fort
-       ArrayList <Unite> unites =new ArrayList<>();
+    private Categorie categorie;
+    //@ManyToMany
+    // Couplage Fort
+    private ArrayList<Unite> unites = new ArrayList<>();
 
-    public void addUnite(Unite unite){
-         unites.add(unite);
-     }
-  
+    public void addUnite(Unite unite) {
+        unites.add(unite);
+    }
+
     public ArrayList<Unite> getUnites() {
         return unites;
     }
@@ -30,12 +31,11 @@ public class ArticleConfection extends AbstractEntities {
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
     }
-    
-    public ArticleConfection(String libelle, int prix, int qte) {
-        this.id = id;
+
+    public ArticleConfection(String libelle, double prix, double qte) {
         this.libelle = libelle;
-        this.prix = this.prix;
-        this.qte = this.qte;
+        this.prix = prix;
+        this.qte = qte;
     }
 
     public ArticleConfection() {
@@ -73,9 +73,17 @@ public class ArticleConfection extends AbstractEntities {
         this.qte = qte;
     }
 
+    public String getCatLibelle() {
+        return catLibelle;
+    }
+
+    public void setCatLibelle(String catLibelle) {
+        this.catLibelle = catLibelle;
+    }
+
     @Override
     public String toString() {
-        return "ArticleConfection [id=" + id + ", libelle=" + libelle + ", prix=" + prix + ", qte=" + qte + "]";
+        return "ArticleConfection [id=" + id + ", libelle=" + libelle + ", prix=" + prix + ", qte=" + qte + ", catLibelle=" + catLibelle + "]";
     }
 
     @Override

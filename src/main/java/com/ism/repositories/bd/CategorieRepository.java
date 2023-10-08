@@ -4,59 +4,33 @@ import com.ism.entities.Categorie;
 import com.ism.repositories.ITables;
 import java.util.ArrayList;
 
-public class CategorieRepository implements ITables<Categorie> {
-
+public class CategorieRepository extends MySqlRepository implements ITables<Categorie> {
+    private static final String INSERT_SQL = "INSERT INTO `categories` (`id`, `libelle`) VALUES (NULL, ?)";
+    private static final String UPDATE_SQL = "UPDATE `categories` SET `libelle` = ? WHERE `categories`.`id` = ?";
+    private static final String SELECT_ALL_SQL = "SELECT id, libelle FROM categories";
+    private static final String SELECT_BY_ID_SQL = "SELECT id, libelle FROM categories WHERE id=?";
+    private static final String DELETE_SQL = "DELETE FROM `categories` WHERE `categories`.`id` = ?";
     @Override
     public int insert(Categorie data) {
-        return 0;
+        return executeUpdate(INSERT_SQL, data.getLibelle());
     }
-
-
-
     @Override
     public int update(Categorie data) {
-        return 0;
+        return executeUpdate(UPDATE_SQL, data.getLibelle(), data.getId());
     }
-
     @Override
     public ArrayList<Categorie> findAll() {
-        return null;
+        return executeQuery(SELECT_ALL_SQL);
     }
-
-//    @Override
-//    public ArrayList<Categorie> findAll() {
-//        ArrayList <Categorie> categories = new ArrayList<>();
-//        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nombdd" + ;
-//            Statement statement = conn.createStatement();
-//            ResultSet rs = statement.executeQuery("select id,libelle from categories");
-//            while (rs.next()){
-//                Categorie categorie = new Categorie(rs.getInt("id"), rs.getString("libelle"));
-//                catategories.add(categorie);
-//            }
-//            conn.close();
-//            Statement.close();
-//            rs.close();
-//        }catch (ClassNotFoundException e){
-//            System.out.println("Error");
-//        }
-//        catch (SQLException e){
-//            System.out.println("Erreur");
-//        }
-//        return categories;
-//    }
-
     @Override
     public Categorie findById(int id) {
-        return null;
+        ArrayList<Categorie> result = executeQuery(SELECT_BY_ID_SQL, id);
+        return result.isEmpty() ? null : result.get(0);
     }
-
     @Override
     public int delete(int id) {
-        return 0;
+        return executeUpdate(DELETE_SQL, id);
     }
-
     @Override
     public int indexOf(int id) {
         return 0;
