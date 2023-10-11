@@ -35,4 +35,5 @@ public class CategorieRepository extends MySqlRepository implements ITables<Cate
     public int indexOf(int id) {
         return 0;
     }
+
 }
