@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ArticleRepository extends MySqlRepository implements ITables<ArticleConfection> {
     private static final String INSERT_SQL = "INSERT INTO `articles` (`id`, `libelle`, `prix`, `qte`, `catID`, `catLibelle`) VALUES (NULL, ?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE `articles` SET `libelle`=?, `prix`=?, `qte`=?, `catID`=?, `catLibelle`=? WHERE `id`=?";
-    private static final String SELECT_ALL_SQL = "SELECT * FROM `articles`";
+    private static final String SELECT_ALL_SQL = "SELECT * FROM `articles`, SELECT * FROM 'categories'";
     private static final String SELECT_BY_ID_SQL = "SELECT id, libelle, prix, qte, catID, catLibelle FROM articles WHERE id=?";
     private static final String DELETE_SQL = "DELETE FROM `articles` WHERE `id`=?";
     @Override

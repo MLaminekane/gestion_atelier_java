@@ -11,9 +11,9 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 public abstract class MySqlRepository {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/gestion_couture_java";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "root";
+    protected static final String DB_URL = "jdbc:mysql://localhost:3306/gestion_couture_java";
+    protected static final String DB_USER = "root";
+    protected static final String DB_PASSWORD = "root";
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -35,6 +35,7 @@ public abstract class MySqlRepository {
             return 0;
         }
     }
+
     protected ArrayList<Categorie> executeQuery(String sql, Object... params) {
         ArrayList<Categorie> categories = new ArrayList<>();
         try (Connection connection = getConnection();
@@ -81,6 +82,7 @@ public abstract class MySqlRepository {
         }
         return articles;
     }
+
     protected static void closeResources(Connection connection, Statement statement, ResultSet resultSet) {
         if (resultSet != null) {
             try {

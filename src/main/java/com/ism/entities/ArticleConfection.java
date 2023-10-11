@@ -7,11 +7,11 @@ public class ArticleConfection extends AbstractEntities {
     private String libelle;
     private double prix;
     private double qte;
-    private String catLibelle; // Champ pour stocker le libellé de la catégorie associée
+    private String catLibelle;
+    private Categorie categorie;
 
     // Attributs Navigationnels
     //@ManyToOne
-    private Categorie categorie;
     //@ManyToMany
     // Couplage Fort
     private ArrayList<Unite> unites = new ArrayList<>();
@@ -32,10 +32,11 @@ public class ArticleConfection extends AbstractEntities {
         this.categorie = categorie;
     }
 
-    public ArticleConfection(String libelle, double prix, double qte) {
+    public ArticleConfection(String libelle, double prix, double qte, Categorie categorie) {
         this.libelle = libelle;
         this.prix = prix;
         this.qte = qte;
+        this.categorie = categorie;
     }
 
     public ArticleConfection() {

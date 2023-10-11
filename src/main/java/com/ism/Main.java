@@ -144,7 +144,7 @@ public class Main {
                             case 1:
                                 System.out.println("Entrer l'id de la categorie: ");
                                 int categorieId = sc.nextInt();
-                                sc.nextLine(); // Ajout de cette ligne pour consommer la nouvelle ligne restante
+                                sc.nextLine();
                                 Categorie selectedCategorie = categorieServiceImpl.show(categorieId);
                                 if (selectedCategorie != null) {
                                     System.out.println("Libellé de la catégorie associée à l'article : " + selectedCategorie.getLibelle());
@@ -153,10 +153,10 @@ public class Main {
                                     String libelle = sc.nextLine();
                                     System.out.println("Entrer le prix: ");
                                     double prix = sc.nextDouble();
-                                    sc.nextLine(); // Ajout de cette ligne pour consommer la nouvelle ligne restante
+                                    sc.nextLine();
                                     System.out.println("Entrer la quantité: ");
                                     double qte = sc.nextDouble();
-                                    sc.nextLine(); // Ajout de cette ligne pour consommer la nouvelle ligne restante
+                                    sc.nextLine();
                                     articleConfection.setLibelle(libelle);
                                     articleConfection.setPrix(prix);
                                     articleConfection.setQte(qte);
